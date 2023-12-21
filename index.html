@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      /* Your existing button styles */
+      button {
+        height: 50px;
+        width: 100px;
+        color: #fff;
+        font-size: larger;
+        margin: 5px; /* Add margin for spacing between buttons */
+        cursor: pointer;
+        transition: all 0.3s ease; /* Add a general transition for smooth changes */
+      }
+
+      button:hover {
+        transform: scale(1.1) rotate(15deg); /* Add a scale and rotation effect on hover */
+      }
+
+      /* Another button class with a different color scheme and animation */
+      .animated-button {
+        background: linear-gradient(135deg, #3498db 50%, #2ecc71 50%);
+        animation: pulsate 1s infinite alternate; /* Add a pulsating animation */
+      }
+
+      .animated-button:hover {
+        background-color: #e74c3c; /* Change the background color on hover */
+        animation: none; /* Disable pulsating animation on hover */
+      }
+
+      /* Yet another button class with a different color scheme and animation */
+      .fade-in-button {
+        background: linear-gradient(45deg, #9b59b6 50%, #34495e 50%);
+        animation: pulsate 1s infinite alternate; /* Add a pulsating animation */
+      }
+
+      .fade-in-button:hover {
+        background-color: #1abc9c; /* Change the background color on hover */
+        animation: none; /* Disable fade-in animation on hover */
+      }
+
+      /* Keyframes for pulsating animation */
+      @keyframes pulsate {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.2);
+        }
+      }
+
+      /* Keyframes for fade-in animation */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div style="text-align: center; padding-top: 30px">
+      <h2> Button Click</h2>
+      <button
+        type="button"
+        class="fade-in-button"
+        onClick="handleButtonClick('Head')"
+      >
+         Head
+      </button>
+      <button
+        type="button"
+        class="animated-button"
+        onClick="handleButtonClick('Tail')"
+      >
+        Tail
+      </button>
+    </div>
+    <table id="dataShow"></table>
+    <script>
+      var mainArray = [];
+
+      function handleButtonClick(type) {
+        if (
+          mainArray.length === 0 ||
+          mainArray[mainArray.length - 1][0] !== type
+        ) {
+          mainArray.push([type]);
+        } else {
+          mainArray[mainArray.length - 1].push(type);
+        }
+        console.log("mainArray", mainArray);
+        displayArrays();
+      }
+
+      function displayArrays() {
+        // Display the arrays in a table
+        var table = document.getElementById("dataShow");
+        table.innerHTML = "";
+
+        // Find the maximum length of sub-arrays
+        var maxSubArrayLength = mainArray.reduce(
+          (max, subArray) => Math.max(max, subArray.length),
+          0
+        );
+
+        for (var i = 0; i < maxSubArrayLength; i++) {
+          var row = table.insertRow();
+
+          mainArray.forEach((subArray) => {
+            var cell = row.insertCell();
+            cell.innerHTML = subArray[i] || ""; // Fill with empty string if the subArray is shorter
+          });
+        }
+      }
+    </script>
+  </body>
+</html>
